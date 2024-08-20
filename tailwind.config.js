@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+       fontFamily: {
+        display: 'Calibri', // Adds a new `font-display` class
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
