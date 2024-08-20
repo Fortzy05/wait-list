@@ -42,7 +42,7 @@ export default function Page() {
   };
 
   return (
-    <section className="w-screen min-h-screen">
+    <section className="w-screen min-h-screen overflow-hidden">
       <div className="bg-[#E3B522] gap-4 w-[100vw] h-[104px] items-center flex pl-[92px]">
         <Image src={logo} height={80} width={80} alt="" />
         <h1 className="uppercase font-display font-bold text-[25px] leading-[4rem] text-[#14BDE3]">
