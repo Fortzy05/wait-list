@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Footer from "./components/Footer";
 import Link from "next/link";
-import logo from "../assets/menu-nav-logo-1.png"
+import logo from "../assets/menu-nav-logo-1.png";
 export default function Page() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,28 +23,59 @@ export default function Page() {
 
   const validate = () => {
     const errors = {};
-    if (!formData.fullName) errors.fullName = "Full Name is required";
-    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
-    if (!formData.countryCity) errors.countryCity = "Country/City is required";
-    if (!formData.email) errors.email = "Email is required";
-    if (!formData.socialHandle)
-      errors.socialHandle = "Social Handle is required";
+    if (!formData.fullName || typeof formData.fullName !== "string")
+      errors.fullName = "Full Name is required ";
+    if (!formData.phoneNumber || typeof formData.phoneNumber !== "string")
+      errors.phoneNumber = "Phone Number is required";
+    if (!formData.countryCity || typeof formData.countryCity !== "string")
+      errors.countryCity = "Country/City is required";
+    if (!formData.email || typeof formData.email !== "string")
+      errors.email = "Email is required and must be a string";
+    if (!formData.socialHandle || typeof formData.socialHandle !== "string")
+      errors.socialHandle = "Social Handle is required ";
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      setIsSubmitted(true);
+      const data = {
+        fullName: String(formData.fullName).trim(),
+        phoneNumber: String(formData.phoneNumber).trim(),
+        countryCity: String(formData.countryCity).trim(),
+        email: String(formData.email).trim(),
+        socialHandle: String(formData.socialHandle).trim(),
+      };
+
+      try {
+        const response = await fetch("api/v1/waiting-list/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          setIsSubmitted(true);
+        } else {
+          const text = await response.text(); // Handle non-JSON responses
+          console.error("Error:", text);
+          setErrors({ form: "An error occurred. Please try again." });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setErrors({ form: "An error occurred. Please try again." });
+      }
     }
   };
 
   return (
     <section className="w-screen min-h-screen overflow-hidden">
       <div className="bg-[#E3B522] gap-4 w-[100vw] h-[104px] items-center flex pl-[92px]">
-        <Image src={logo} height={80} width={80} alt="" />
+        <Image src={logo} height={80} width={82} alt="" />
         <h1 className="uppercase font-display font-bold text-[25px] leading-[4rem] text-[#14BDE3]">
           Kgf cause shop
         </h1>
@@ -97,7 +128,7 @@ export default function Page() {
             ethically-sourced collection of African products
           </p>
           <div className=" my-24 flex justify-center">
-            <Image src="/cuate.svg" height={500} width={500} alt="" />
+            <Image src="/cuate.svg" height={500} width={550} alt=""  priority/>
           </div>
           <div className="bg-[#F7F9F9] font-display flex items-center w-[940px] h-[112px] rounded-[10px] p-5">
             <p className="text-[1rem] font-display leading-6 w-[900px] h-[72px] ">
