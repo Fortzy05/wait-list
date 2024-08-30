@@ -1,21 +1,43 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Footer from "./components/Footer";
 import Link from "next/link";
 import logo from "../assets/menu-nav-logo-1.png";
 export default function Page() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    phoneNumber: "",
-    countryCity: "",
+    full_name: "",
+    phone_number: "",
+    country: "",
     email: "",
-    socialHandle: "",
+    social_media: "",
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [registrationCount, setRegistrationCount] = useState(null);
+  const [countError, setCountError] = useState(null);
 
+const fetchRegisterationCount = async () => {
+  try {
+    const response = await fetch("/api/count", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch the registration count");
+    }
+    const data = await response.json();
+    setRegistrationCount(data.count);
+  } catch (error) {
+    setCountError(error.message);
+  }
+};
+  useEffect(() => {
+    fetchRegisterationCount();
+  },[]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,16 +45,16 @@ export default function Page() {
 
   const validate = () => {
     const errors = {};
-    if (!formData.fullName || typeof formData.fullName !== "string")
-      errors.fullName = "Full Name is required ";
-    if (!formData.phoneNumber || typeof formData.phoneNumber !== "string")
-      errors.phoneNumber = "Phone Number is required";
-    if (!formData.countryCity || typeof formData.countryCity !== "string")
-      errors.countryCity = "Country/City is required";
+    if (!formData.full_name || typeof formData.full_name !== "string")
+      errors.full_name = "Full Name is required ";
+    if (!formData.phone_number || typeof formData.phone_number !== "string")
+      errors.phone_number = "Phone Number is required";
+    if (!formData.country || typeof formData.country !== "string")
+      errors.country = "Country/City is required";
     if (!formData.email || typeof formData.email !== "string")
       errors.email = "Email is required and must be a string";
-    if (!formData.socialHandle || typeof formData.socialHandle !== "string")
-      errors.socialHandle = "Social Handle is required ";
+    if (!formData.social_media || typeof formData.social_media !== "string")
+      errors.social_media = "Social Handle is required ";
     return errors;
   };
 
@@ -41,25 +63,26 @@ export default function Page() {
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      const data = {
-        fullName: String(formData.fullName).trim(),
-        phoneNumber: String(formData.phoneNumber).trim(),
-        countryCity: String(formData.countryCity).trim(),
+      const formattedData = {
+        full_name: String(formData.full_name).trim(),
+        phone_number: String(formData.phone_number).trim(),
+        country: String(formData.country).trim(),
         email: String(formData.email).trim(),
-        socialHandle: String(formData.socialHandle).trim(),
+        social_media: String(formData.social_media).trim(),
       };
 
       try {
-        const response = await fetch("api/v1/waiting-list/register", {
+        const response = await fetch("/api", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(formattedData),
         });
 
         if (response.ok) {
           setIsSubmitted(true);
+          fetchRegisterationCount();
         } else {
           const text = await response.text(); // Handle non-JSON responses
           console.error("Error:", text);
@@ -71,7 +94,6 @@ export default function Page() {
       }
     }
   };
-
   return (
     <section className="w-screen min-h-screen overflow-hidden">
       <div className="bg-[#E3B522] gap-4 w-[100vw] h-[104px] items-center flex pl-[92px]">
@@ -128,7 +150,7 @@ export default function Page() {
             ethically-sourced collection of African products
           </p>
           <div className=" my-24 flex justify-center">
-            <Image src="/cuate.svg" height={500} width={550} alt=""  priority/>
+            <Image src="/cuate.svg" height={500} width={550} alt="" priority />
           </div>
           <div className="bg-[#F7F9F9] font-display flex items-center w-[940px] h-[112px] rounded-[10px] p-5">
             <p className="text-[1rem] font-display leading-6 w-[900px] h-[72px] ">
@@ -146,37 +168,37 @@ export default function Page() {
                 <input
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[380px] h-[34px]"
                   type="text"
-                  name="fullName"
+                  name="full_name"
                   placeholder="Full Name"
-                  value={formData.fullName}
+                  value={formData.full_name}
                   onChange={handleChange}
                 />
                 {errors.fullName && (
-                  <p className="text-red-500">{errors.fullName}</p>
+                  <p className="text-red-500">{errors.full_name}</p>
                 )}
                 <input
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[380px] h-[34px]"
                   type="text"
-                  name="phoneNumber"
+                  name="phone_number"
                   placeholder="Phone Number"
-                  value={formData.phoneNumber}
+                  value={formData.phone_number}
                   onChange={handleChange}
                 />
                 {errors.phoneNumber && (
-                  <p className="text-red-500">{errors.phoneNumber}</p>
+                  <p className="text-red-500">{errors.phone_number}</p>
                 )}
               </div>
               <div className="flex gap-5 mb-5 items-center">
                 <input
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[380px] h-[34px]"
                   type="text"
-                  name="countryCity"
-                  placeholder="Country/City"
-                  value={formData.countryCity}
+                  name="country"
+                  placeholder="Country"
+                  value={formData.country}
                   onChange={handleChange}
                 />
                 {errors.countryCity && (
-                  <p className="text-red-500">{errors.countryCity}</p>
+                  <p className="text-red-500">{errors.country}</p>
                 )}
                 <input
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[380px] h-[34px]"
@@ -192,13 +214,13 @@ export default function Page() {
                 <input
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[788px] h-[34px]"
                   type="url"
-                  name="socialHandle"
+                  name="social_media"
                   placeholder="Twitter/Instagram/Facebook handle"
-                  value={formData.socialHandle}
+                  value={formData.social_media}
                   onChange={handleChange}
                 />
                 {errors.socialHandle && (
-                  <p className="text-red-500">{errors.socialHandle}</p>
+                  <p className="text-red-500">{errors.social_media}</p>
                 )}
               </div>
               <button
@@ -213,14 +235,25 @@ export default function Page() {
       )}
 
       <div className="pb-2 relative mr-8 mb-8 ">
-        <h1 className="font-semibold text-[20px] pt-2 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
-          452 others just joined
-        </h1>
-        <div className="right-0 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-        <div className="right-3 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-        <div className="right-6 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-        <div className="right-9 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-        <div className="right-12 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+        {countError ? (
+          <p className="text-red-500">
+            {" "}
+            Error fetching registration count: {countError}
+          </p>
+        ) : registrationCount !== null ? (
+          <>
+            <h1 className="font-semibold text-[20px] pt-2 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
+              {registrationCount} others just joined
+            </h1>
+            <div className="right-0 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            <div className="right-3 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            <div className="right-6 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            <div className="right-9 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            <div className="right-12 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+          </>
+        ) : (
+          <p className="text-lg"> Loading registration count...</p>
+        )}
       </div>
 
       <div className="pt-11">
