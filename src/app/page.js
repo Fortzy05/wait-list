@@ -95,8 +95,8 @@ const fetchRegisterationCount = async () => {
     }
   };
   return (
-    <section className="w-screen min-h-screen overflow-hidden">
-      <div className="bg-[#E3B522] gap-4 w-[100vw] h-[104px] items-center flex pl-[92px]">
+    <section className="w-screen relative  min-h-screen overflow-hidden">
+      <div className="bg-[#E3B522] gap-2 w-[100vw] h-[104px] items-center flex pl-[92px]">
         <Image src={logo} height={80} width={82} alt="" />
         <h1 className="uppercase font-display font-bold text-[25px] leading-[4rem] text-[#14BDE3]">
           Kgf cause shop
@@ -138,22 +138,25 @@ const fetchRegisterationCount = async () => {
           </Link>
         </div>
       ) : (
-        <section className="px-24 pt-24 font-display">
-          <h1 className="my-4 font-display font-bold text-[4rem] leading-[4rem] text-[#000000]">
+        <section className="pl-[142px]">
+          <h1 className="mt-[56px] w-[405px] h-[102px] font-Abhaya font-bold text-[100px] leading-[120px] text-[#000000]">
             Welcome!
           </h1>
-          <h4 className="my-8 font-display font-bold leading-10 text-[32px] text-[#000000]">
+          <h3 className="mt-8 font-Abhaya font-bold leading-[70px] text-[55px] text-[#000000]">
             This website is under construction
+          </h3>
+          <h4 className=" font-Abhaya font-bold leading-[70px] text-[55px] text-[#000000]">
+            Join the waiting list
           </h4>
-          <p className="font-bold leading-[28px] text-[24px] text-[#6E6363]">
-            Join the waiting list for access to the carefully curated
-            ethically-sourced collection of African products
+          <p className="font-bold my-1 font-Abhaya leading-[34px] text-[2rem] text-[#6E6363]">
+            For access to the carefully curated ethically-sourced collection of
+            African products
           </p>
-          <div className=" my-24 flex justify-center">
+          {/* <div className=" my-24 flex justify-center">
             <Image src="/cuate.svg" height={500} width={550} alt="" priority />
-          </div>
-          <div className="bg-[#F7F9F9] font-display flex items-center w-[940px] h-[112px] rounded-[10px] p-5">
-            <p className="text-[1rem] font-display leading-6 w-[900px] h-[72px] ">
+          </div> */}
+          <div className=" font-bold font-Inter flex items-center text-justify w-[940px] h-[112px] rounded-[10px] pt-[42px]">
+            <p className="text-[18px]  font-Inter italic leading-8 w-[900px] h-[96px]">
               By submitting this form, you consent to the collection and
               processing of your personal data in accordance with the General
               Data Protection Regulation (GDPR) for the purpose of the Research.
@@ -193,7 +196,7 @@ const fetchRegisterationCount = async () => {
                   className="rounded-[10px] border-[1px] border-[#6E6363] px-2.5 py-2.5 w-[380px] h-[34px]"
                   type="text"
                   name="country"
-                  placeholder="Country"
+                  placeholder="Country/City"
                   value={formData.country}
                   onChange={handleChange}
                 />
@@ -224,7 +227,7 @@ const fetchRegisterationCount = async () => {
                 )}
               </div>
               <button
-                className="px-5 py-2.5 bg-[#E3B522] text-[#ffffff] rounded-[50px]"
+                className="px-12 font-Abhaya font-semibol  text-[24px] leading-7 py-2.5 bg-[#00A859] text-[#ffffff] rounded-[40px]"
                 type="submit"
               >
                 Submit
@@ -234,29 +237,31 @@ const fetchRegisterationCount = async () => {
         </section>
       )}
 
-      <div className="pb-2 relative mr-8 mb-8 ">
+      <div className="relative mr-11 ">
         {countError ? (
           <p className="text-red-500">
-            {" "}
             Error fetching registration count: {countError}
           </p>
         ) : registrationCount !== null ? (
           <>
-            <h1 className="font-semibold text-[20px] pt-2 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
-              {registrationCount} others just joined
-            </h1>
-            <div className="right-0 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-            <div className="right-3 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-            <div className="right-6 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-            <div className="right-9 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
-            <div className="right-12 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            <div className="absolute right-4 bottom-[180px]">
+            
+              <h1 className="font-semibold text-[20px] pt-1 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
+                {registrationCount} others just joined
+              </h1>
+              <div className="right-0 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+              <div className="right-3 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+              <div className="right-6 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+              <div className="right-9 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+              <div className="right-12 border-[#FFFFFF] rounded-full absolute w-[36px] h-[36px] border-[3px] bg-[#D9D9D9]"></div>
+            </div>
           </>
         ) : (
           <p className="text-lg"> Loading registration count...</p>
         )}
       </div>
 
-      <div className="pt-11">
+      <div>
         <Footer />
       </div>
     </section>
