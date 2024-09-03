@@ -104,7 +104,7 @@ const fetchRegisterationCount = async () => {
       </div>
 
       {isSubmitted ? (
-        <div className="px-24 py-8 my-8">
+        <div className="px-24 py-8">
           <div className="flex justify-center items-center">
             <div className="w-[300px] h-[300px] bg-[#94D9B9]/15 rounded-full relative flex justify-center items-center ">
               <div className="absolute w-[200px] h-[200px] bg-[#94D9B9]/45 rounded-full">
@@ -125,15 +125,15 @@ const fetchRegisterationCount = async () => {
               </div>
             </div>
           </div>
-          <h1 className="font-bold my-8 font-display text-[2rem] text-[#000000] text-center mt-4">
+          <h1 className="font-bold my-4 font-Abhaya text-[2rem] text-[#000000] text-center mt-4">
             Congratulations!
           </h1>
-          <h1 className="text-[20px] font-display text-[#6E6363] text-center mt-4">
+          <h1 className="text-[20px] font-Abhaya text-[#6E6363] text-center mt-4">
             You have been successfully added to the waiting list
           </h1>
           <Link className="h-full flex" href="/">
-            <button className="px-5 py-2.5 font-display bg-[#E3B522] rounded-[50px] text-[#f1f1f1f1] text-[20px] mt-11 mx-auto">
-              Go to the KGF Cause Shop
+            <button className="px-5 py-2.5 font-Abhaya bg-[#E3B522] rounded-[50px] text-[#f1f1f1f1] text-[20px] mt-6 mx-auto">
+              Go to the KGF Waiting list page
             </button>
           </Link>
         </div>
@@ -244,7 +244,7 @@ const fetchRegisterationCount = async () => {
           </p>
         ) : registrationCount !== null ? (
           <>
-            <div className="absolute right-4 bottom-[180px]">
+            <div className="absolute right-4 bottom-[80px]">
             
               <h1 className="font-semibold text-[20px] pt-1 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
                 {registrationCount} others just joined
@@ -257,7 +257,7 @@ const fetchRegisterationCount = async () => {
             </div>
           </>
         ) : (
-          <p className="text-lg"> Loading registration count...</p>
+          <p className="text-lg absolute bottom-11 left-[102px]"> Loading registration count...</p>
         )}
       </div>
 
