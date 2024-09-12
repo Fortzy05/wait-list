@@ -149,21 +149,12 @@ const fetchRegisterationCount = async () => {
             Join the waiting list
           </h4>
           <p className="font-bold my-1 font-Abhaya leading-[34px] text-[2rem] text-[#6E6363]">
-            For access to the carefully curated ethically-sourced collection of
+            For access to our carefully curated ethically-sourced collection of
             African products
           </p>
           {/* <div className=" my-24 flex justify-center">
             <Image src="/cuate.svg" height={500} width={550} alt="" priority />
           </div> */}
-          <div className=" font-bold font-Inter flex items-center text-justify w-[940px] h-[112px] rounded-[10px] pt-[42px]">
-            <p className="text-[18px]  font-Inter italic leading-8 w-[900px] h-[96px]">
-              By submitting this form, you consent to the collection and
-              processing of your personal data in accordance with the General
-              Data Protection Regulation (GDPR) for the purpose of the Research.
-              Your information and responses will be kept confidential and used
-              solely for the purpose of this research.
-            </p>
-          </div>
 
           <div className="mt-11">
             <form className="mb-[157px] font-display" onSubmit={handleSubmit}>
@@ -227,11 +218,21 @@ const fetchRegisterationCount = async () => {
                 )}
               </div>
               <button
-                className="px-12 font-Abhaya font-semibol  text-[24px] leading-7 py-2.5 bg-[#00A859] text-[#ffffff] rounded-[40px]"
+                className="px-12 font-Abhaya mt-6 font-semibol  text-[24px] leading-7 py-2.5 bg-[#00A859] text-[#ffffff] rounded-[40px]"
                 type="submit"
               >
                 Submit
               </button>
+
+              <div className=" font-semibold font-Inter flex items-center  w-[940px] h-[112px] rounded-[10px] mt-[42px] ">
+                <p className="text-[18px] px-2  font-Inter leading-8 w-[900px] h-[96px]">
+                  By submitting this form, you consent to the collection and
+                  processing of your personal data in accordance with the
+                  General Data Protection Regulation (GDPR) for the purpose of
+                  the Research. Your information and responses will be kept
+                  confidential and used solely for the purpose of this research.
+                </p>
+              </div>
             </form>
           </div>
         </section>
@@ -245,7 +246,6 @@ const fetchRegisterationCount = async () => {
         ) : registrationCount !== null ? (
           <>
             <div className="absolute right-4 bottom-[80px]">
-            
               <h1 className="font-semibold text-[20px] pt-1 leading-7 w-[250px] right-11 absolute  text-[#6E6363]">
                 {registrationCount} others just joined
               </h1>
@@ -257,7 +257,10 @@ const fetchRegisterationCount = async () => {
             </div>
           </>
         ) : (
-          <p className="text-lg absolute bottom-11 left-[102px]"> Loading registration count...</p>
+          <p className="text-lg absolute bottom-11 left-[102px]">
+            {" "}
+            Loading registration count...
+          </p>
         )}
       </div>
 
